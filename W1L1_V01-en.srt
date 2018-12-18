@@ -1,0 +1,432 @@
+0
+00:00:00,000 --> 00:00:00,500
+
+
+1
+00:00:00,500 --> 00:00:04,620
+Welcome to CTL SC1x Fundamentals of Supply Chain
+
+2
+00:00:04,620 --> 00:00:06,600
+Management and Logistics.
+
+3
+00:00:06,600 --> 00:00:08,540
+In this lecture, all I want to do
+
+4
+00:00:08,540 --> 00:00:12,130
+is introduce concepts of Supply Chain Management and Logistics,
+
+5
+00:00:12,130 --> 00:00:14,840
+and set the stage for the remainder of the course.
+
+6
+00:00:14,840 --> 00:00:16,770
+But first, let's talk about some supply
+
+7
+00:00:16,770 --> 00:00:19,770
+chains for a few different products.
+
+8
+00:00:19,770 --> 00:00:22,980
+And so what I'm showing here are four very different products
+
+9
+00:00:22,980 --> 00:00:25,770
+that you would think have very different supply chains.
+
+10
+00:00:25,770 --> 00:00:26,920
+And you'd be right.
+
+11
+00:00:26,920 --> 00:00:29,570
+In the top left, we have bananas being
+
+12
+00:00:29,570 --> 00:00:31,870
+sold in a U.S. grocery store.
+
+13
+00:00:31,870 --> 00:00:35,350
+On the right, we have an integrated ignition assembly.
+
+14
+00:00:35,350 --> 00:00:38,800
+On the bottom right, we have women's pumps.
+
+15
+00:00:38,800 --> 00:00:40,510
+On the bottom left, we have a bunch
+
+16
+00:00:40,510 --> 00:00:43,290
+of bags of cement-- of concrete.
+
+17
+00:00:43,290 --> 00:00:46,250
+So if you look at these, you'd think, wow!
+
+18
+00:00:46,250 --> 00:00:49,269
+There's nothing that could be similar in these supply chains.
+
+19
+00:00:49,269 --> 00:00:51,560
+And the interesting thing about supply chain management
+
+20
+00:00:51,560 --> 00:00:53,860
+is that every product has a story,
+
+21
+00:00:53,860 --> 00:00:57,500
+and every product is part of multiple supply chains.
+
+22
+00:00:57,500 --> 00:01:00,630
+So everything you touch-- and most things you don't-- flow
+
+23
+00:01:00,630 --> 00:01:03,930
+through some kind of supply chain somewhere in the world.
+
+24
+00:01:03,930 --> 00:01:06,130
+It's very, very rare where you can
+
+25
+00:01:06,130 --> 00:01:09,050
+think of an item that gets created, manufactured,
+
+26
+00:01:09,050 --> 00:01:12,570
+or grown, and consumed in the exact same place,
+
+27
+00:01:12,570 --> 00:01:14,590
+at the exact same time.
+
+28
+00:01:14,590 --> 00:01:17,170
+You need to have supply chains to overcome
+
+29
+00:01:17,170 --> 00:01:19,430
+the tyranny of time and space.
+
+30
+00:01:19,430 --> 00:01:21,590
+And that's what supply chains do.
+
+31
+00:01:21,590 --> 00:01:24,889
+But again, you look at these four very different products,
+
+32
+00:01:24,889 --> 00:01:27,180
+and what's interesting is there's a lot of similarities
+
+33
+00:01:27,180 --> 00:01:28,560
+you might not think about.
+
+34
+00:01:28,560 --> 00:01:31,700
+So if I look at the bananas up here in the top left,
+
+35
+00:01:31,700 --> 00:01:34,050
+and compare that to the shoes, you
+
+36
+00:01:34,050 --> 00:01:35,780
+can think about perishability.
+
+37
+00:01:35,780 --> 00:01:38,270
+Because, yes, bananas will spoil over time,
+
+38
+00:01:38,270 --> 00:01:39,720
+but so will women's shoes.
+
+39
+00:01:39,720 --> 00:01:41,820
+Style is very fickle.
+
+40
+00:01:41,820 --> 00:01:44,940
+So what's in for this season will not be in for too long.
+
+41
+00:01:44,940 --> 00:01:48,030
+So the idea of perishability, how long something
+
+42
+00:01:48,030 --> 00:01:49,860
+will stay fresh and able to be sold
+
+43
+00:01:49,860 --> 00:01:52,310
+at its normal standard price, is something
+
+44
+00:01:52,310 --> 00:01:54,570
+that is not just about fruit, it's
+
+45
+00:01:54,570 --> 00:01:56,940
+about many other fashion items.
+
+46
+00:01:56,940 --> 00:01:59,000
+Then you can think about sourcing.
+
+47
+00:01:59,000 --> 00:02:02,660
+You don't have a lot of choice of where you can source cement,
+
+48
+00:02:02,660 --> 00:02:05,150
+or for where you can source bananas.
+
+49
+00:02:05,150 --> 00:02:07,380
+I can't grow bananas up here in Boston.
+
+50
+00:02:07,380 --> 00:02:10,590
+I could try in a greenhouse but it'd be very, very expensive.
+
+51
+00:02:10,590 --> 00:02:14,120
+You can't mine for cement where it doesn't already exist.
+
+52
+00:02:14,120 --> 00:02:18,480
+So sometimes your product is tied to a sourcing location
+
+53
+00:02:18,480 --> 00:02:20,049
+that you cannot change.
+
+54
+00:02:20,049 --> 00:02:21,590
+Then you could think of products that
+
+55
+00:02:21,590 --> 00:02:25,000
+are single-- individual items like bananas,
+
+56
+00:02:25,000 --> 00:02:28,740
+there's really only one part to the banana, or the cement--
+
+57
+00:02:28,740 --> 00:02:30,260
+while there are many chemicals you
+
+58
+00:02:30,260 --> 00:02:31,850
+might put in there as additives.
+
+59
+00:02:31,850 --> 00:02:35,430
+But you look at products like this ignition and the shoe.
+
+60
+00:02:35,430 --> 00:02:37,100
+They're made up of components.
+
+61
+00:02:37,100 --> 00:02:39,850
+And it could be that those components are not made by you,
+
+62
+00:02:39,850 --> 00:02:40,960
+but by someone else.
+
+63
+00:02:40,960 --> 00:02:43,800
+And therefore, you're part of a larger supply chain.
+
+64
+00:02:43,800 --> 00:02:46,460
+And finally, you can look at who you sell to.
+
+65
+00:02:46,460 --> 00:02:48,640
+For shoes, you're selling to a consumer.
+
+66
+00:02:48,640 --> 00:02:51,610
+A woman is probably buying these and, who knows, maybe a guy.
+
+67
+00:02:51,610 --> 00:02:52,600
+You never know.
+
+68
+00:02:52,600 --> 00:02:54,830
+So someone is buying this as a consumer.
+
+69
+00:02:54,830 --> 00:02:56,000
+Same thing with bananas.
+
+70
+00:02:56,000 --> 00:03:00,070
+It's a B to C, a business to consumer, business.
+
+71
+00:03:00,070 --> 00:03:01,710
+For these ignition assemblies, it's
+
+72
+00:03:01,710 --> 00:03:04,205
+probably being sold to an auto manufacturer,
+
+73
+00:03:04,205 --> 00:03:08,300
+or an original equipment manufacturer, or OEM.
+
+74
+00:03:08,300 --> 00:03:10,190
+Same thing with these bags of cement.
+
+75
+00:03:10,190 --> 00:03:13,550
+Chances are it's being sold to a construction company.
+
+76
+00:03:13,550 --> 00:03:16,430
+So if I look at these four different products, what's
+
+77
+00:03:16,430 --> 00:03:19,410
+really interesting is that the same decisions
+
+78
+00:03:19,410 --> 00:03:21,910
+are being made by the people managing those supply
+
+79
+00:03:21,910 --> 00:03:24,370
+chains in each one of these products.
+
+80
+00:03:24,370 --> 00:03:27,411
+Now the values and the outcomes might differ,
+
+81
+00:03:27,411 --> 00:03:28,910
+but they're all making the decisions
+
+82
+00:03:28,910 --> 00:03:31,030
+of where can I source from?
+
+83
+00:03:31,030 --> 00:03:33,010
+How much inventory do I hold?
+
+84
+00:03:33,010 --> 00:03:35,560
+How do I forecast my demand?
+
+85
+00:03:35,560 --> 00:03:37,310
+Where do I stock my inventory?
+
+86
+00:03:37,310 --> 00:03:41,470
+How do I move my product from source to final consumption?
+
+87
+00:03:41,470 --> 00:03:43,080
+And all those kind of things.
+
+88
+00:03:43,080 --> 00:03:44,600
+And what we'll do in this course,
+
+89
+00:03:44,600 --> 00:03:47,380
+is discuss the concepts and methodologies
+
+90
+00:03:47,380 --> 00:03:49,840
+that will allow you to plan supply chains for products
+
+91
+00:03:49,840 --> 00:03:54,430
+as diverse as bananas, women shoes, automotive parts,
+
+92
+00:03:54,430 --> 00:03:56,930
+cement, and everything in between.
+
+93
+00:03:56,930 --> 00:03:58,880
+So what are we going to do in this lecture?
+
+94
+00:03:58,880 --> 00:04:01,440
+Well, we're going to answer five big questions.
+
+95
+00:04:01,440 --> 00:04:02,934
+First is, what's a supply chain?
+
+96
+00:04:02,934 --> 00:04:04,850
+Then we're going to talk about the differences
+
+97
+00:04:04,850 --> 00:04:07,360
+between logistics and supply chain management.
+
+98
+00:04:07,360 --> 00:04:09,900
+Then we're going to talk about different perspectives of how
+
+99
+00:04:09,900 --> 00:04:11,880
+you can view supply chain management.
+
+100
+00:04:11,880 --> 00:04:14,412
+Because it's a very new and evolving field,
+
+101
+00:04:14,412 --> 00:04:15,870
+people have different perspectives,
+
+102
+00:04:15,870 --> 00:04:18,410
+and it helps you to understand those.
+
+103
+00:04:18,410 --> 00:04:20,260
+Finally, we'll talk about the challenges
+
+104
+00:04:20,260 --> 00:04:22,980
+that are faced in the supply chain.
+
+105
+00:04:22,980 --> 00:04:24,990
+And then, finally, the last thing we'll do,
+
+106
+00:04:24,990 --> 00:04:27,040
+is why should you care?
+
+107
+00:04:27,040 --> 00:04:29,390
+All right, so let's get started.
+
