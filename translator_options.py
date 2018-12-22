@@ -1,7 +1,7 @@
 ### Specify which files to translate
 # If true, translates all files in the folder titled 'inputs'
 translate_all_files=True
-# Only applies if all_files=False
+# Only applies if translate_all_files=False
 specific_files=['W1L1_V01-en.srt']
 
 

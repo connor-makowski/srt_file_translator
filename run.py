@@ -23,5 +23,6 @@ for each_file in file_list:
         output_filename=each_file[:each_file.find('.srt')]+'-'+each_language+'.srt'
         file_to_output=dir_path + "/" + output_folder + "/" + output_filename
         results=Translate(input_filepath=file_to_translate,
-        output_filepath=file_to_output, in_language=input_language, out_language=each_language)
+        output_filepath=file_to_output, in_language=input_language,
+        out_language=each_language, dir_path=dir_path)
         # print (results)

@@ -1,3 +1,4 @@
 dev
 venv
 __pycache__
+google_key/*.json

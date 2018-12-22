@@ -1,6 +1,13 @@
-import re
+# Define a Function to get the key path for Google
+def get_key_path(dir_path, key_location='google_key'):
+    import os
+    key_directory=dir_path+'/'+key_location
+    key_file = os.listdir(key_directory)[0]
+    key_path = key_directory+'/'+key_file
+    return key_path
 
 def AggregateSentences(in_file):
+    import re
     time_structure=re.compile('\d{2}:\d{2}:\d{2},\d{3} --> \d{2}:\d{2}:\d{2},\d{3}')
     data={'Times':[],'Text':[]}
     use_next=False
