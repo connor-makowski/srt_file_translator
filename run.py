@@ -1,6 +1,6 @@
 import os
 from translator_options import *
-from translate import Translate
+from code.translate import Translate
 
 # Specify input and output Folder
 input_folder="inputs"
