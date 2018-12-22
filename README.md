@@ -13,7 +13,7 @@ Prerequisites
 
 This project uses some open source projects to function:
 
-* [Google Translate] - A simple translation API for python
+* Google Translate - A simple translation API for python
 
 How to Use
 ----------
