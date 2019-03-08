@@ -28,32 +28,34 @@ Make sure you have Python 3.6.x (or higher) installed on your system. You can do
     cd srt-translator
     ```
 2. Setup a virtual environment and install all requirements:
-    ```sh
+    ```
     python3 -m virtualenv venv
     ```
     Activate your virtual environment on Unix (Mac or Linux):
-    ```sh
+    ```
     source venv/bin/activate
     ```
     Activate your virtual environment on Windows:
-    ```sh
+    ```
     venv\Scripts\activate
     ```
     Install all requirements:
-    ```sh
+    ```
     pip install -r requirements.txt
     ```
+3. Copy your Google-API Key over to the `google_key` folder in the root directory.
+  - You can create a new json key [here](https://console.cloud.google.com/apis/credentials/serviceaccountkey).
 
-3. Drop your current SRT files into the folder titled `inputs`.
+4. Drop your current SRT files into the folder titled `inputs`.
 
-4. Edit the `translator_options.py` file to match your needs.
+5. Edit the `translator_options.py` file to match your needs.
     To see all languages, run:
-    ```sh
+    ```
     python see_languages.py
     ```
 
-5. Use python to run the file `run.py`.
-  ```sh
+6. Use python to run the file `run.py`.
+  ```
   python run.py
   ```
 
