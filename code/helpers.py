@@ -2,7 +2,7 @@
 def get_key_path(dir_path, key_location='google_key'):
     import os
     key_directory=dir_path+'/'+key_location
-    key_file = os.listdir(key_directory)[0]
+    key_file = [i for i in os.listdir(key_directory) if '__init__.py' not in i][0]
     key_path = key_directory+'/'+key_file
     return key_path
 

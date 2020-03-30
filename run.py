@@ -8,7 +8,7 @@ output_folder="outputs"
 
 # Get All Files in input Folder
 dir_path = os.path.dirname(os.path.realpath(__file__))
-all_files=os.listdir(dir_path + "/" + input_folder)
+all_files=[i for i in os.listdir(dir_path + "/" + input_folder) if '__init__.py' not in i]
 
 # Determine which files to translate
 if translate_all_files:
