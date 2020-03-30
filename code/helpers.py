@@ -39,7 +39,6 @@ def AggregateSentences(in_file):
                 index_location=max(text_to_add.rfind('?'),text_to_add.rfind('!'),text_to_add.rfind('.'))
                 newer_text=text_to_add[:index_location+1]
                 if index_location+1<len(text_to_add):
-                    print (j)
                     is_break=True
                     break_text=text_to_add[index_location+1:]
             else:
