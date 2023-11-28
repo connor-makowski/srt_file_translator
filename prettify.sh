@@ -2,6 +2,6 @@
 cd $(dirname "$0")
 # Lint and Autoformat the code in place
 # Remove unused imports
-autoflake --in-place --remove-all-unused-imports --ignore-init-module-imports -r ./srt_translator
+autoflake --in-place --remove-all-unused-imports --ignore-init-module-imports -r ./srt_file_translator
 # Perform all other steps
-black --config pyproject.toml ./srt_translator
+black --config pyproject.toml ./srt_file_translator

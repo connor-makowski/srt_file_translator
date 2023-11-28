@@ -4,14 +4,14 @@ target-version = ['py39']
 exclude = '/.*(__pycache__).*/'
 
 [tool.setuptools]
-py-modules = ["srt_translator"]
+py-modules = ["srt_file_translator"]
 
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "srt_translator"
+name = "srt_file_translator"
 version = "1.0.0"
 description = "A python translator for srt files."
 authors = [
@@ -30,6 +30,6 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/connor-makowski/srt_translator"
-"Bug Tracker" = "https://github.com/connor-makowski/srt_translator/issues"
-"Documentation" = "https://connor-makowski.github.io/srt_translator/srt_translator/enforcer.html"
+"Homepage" = "https://github.com/connor-makowski/srt_file_translator"
+"Bug Tracker" = "https://github.com/connor-makowski/srt_file_translator/issues"
+"Documentation" = "https://connor-makowski.github.io/srt_file_translator/srt_file_translator/enforcer.html"
