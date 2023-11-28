@@ -1,0 +1,19 @@
+0
+00:00:00,000 --> 00:00:00,500
+
+
+1
+00:00:00,500 --> 00:00:04,620
+Welcome to an introduction on how to use
+
+2
+00:00:04,620 --> 00:00:06,600
+the SRT File Translator package.
+
+3
+00:00:06,600 --> 00:00:08,540
+This is only an example SRT
+
+4
+00:00:08,540 --> 00:00:12,130
+file for the purpose of this demonstration.
