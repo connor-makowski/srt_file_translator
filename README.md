@@ -109,6 +109,45 @@ Este es sólo un ejemplo de SRT.
 
 Notice how the statements are aggregated into a single line before being translated. This allows google translate to translate the entire statement as a single unit. This is important because google translate will often translate individual words incorrectly if they are not in the context of the entire statement.
 
+## Additional Examples:
+
+### Translating all files in a folder to multiple languages:
+
+```py
+# Import the Translator class
+from srt_file_translator import Translator
+# Import os for file system operations
+import os
+
+# Initialize a translator object
+translator = Translator(key_path="bq_key.json")
+
+# Specify the input and output folders
+input_folder = "example_data"
+output_folder = "example_output"
+
+# Create the output folder if it doesn't exist
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
+
+# Specify the source language and target languages
+source_language = "en"
+target_languates = ["es", "fr", "de", "it", "pt", "ru", "zh", "ja", "ko"]
+
+# Loop through all files in the input folder
+for file in os.listdir(input_folder):
+    # Loop through all target languages
+    for target_language in target_languates:
+        # Translate each input file to each target language
+        translator.srt_file_translator(
+            source_file=os.path.join(input_folder, file),
+            target_file=os.path.join(output_folder, f"{os.path.splitext(file)[0]}-{target_language}.srt"),
+            source_language=source_language,
+            target_language=target_language
+        )
+```
+
+
 # License
 
 Copyright 2024 Connor Makowski
