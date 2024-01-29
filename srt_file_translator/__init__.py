@@ -196,13 +196,22 @@ class Translator(SRT_Utils):
         srt_data = self.parse_srt(
             filepath=source_file, statement_delimiters=statement_delimiters
         )
-        translations = [
-            i["translatedText"]
-            for i in self.__client__.translate(
-                list(srt_data.values()),
-                target_language=target_language,
-                source_language=source_language,
-            )
+
+        # Chunk SRT Data into 128 item chunks
+        srt_data_values = list(srt_data.values())
+        chunked_values = [
+            srt_data_values[i : i + 128]
+            for i in range(0, len(srt_data_values), 128)
         ]
+        translations = []
+        for chunk in chunked_values:
+            translations += [
+                i["translatedText"]
+                for i in self.__client__.translate(
+                    chunk,
+                    target_language=target_language,
+                    source_language=source_language,
+                )
+            ]
         output_srt_data = dict(zip(srt_data.keys(), translations))
         self.write_srt(filepath=target_file, srt_data=output_srt_data)
