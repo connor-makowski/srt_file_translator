@@ -19,7 +19,7 @@ class SRT_Utils:
         * **`statement_delimiters`**: `[list]` &rarr; A list of characters that indicate the end of a statement. Defaults to `[".", "?", "!"]`.
         """
         time_structure = re.compile(
-            "\d{2}:\d{2}:\d{2},\d{3} --> \d{2}:\d{2}:\d{2},\d{3}"
+            "\d{2}:\d{2}:\d{2},\d+ --> \d{2}:\d{2}:\d{2},\d+"
         )
 
         last_time = "00:00:00,000 --> 00:00:00,000"
