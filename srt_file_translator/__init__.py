@@ -42,6 +42,42 @@ class SRT_Utils:
             srt_data=srt_data, statement_delimiters=statement_delimiters
         )
         return srt_data
+    
+    def find_delimiter(self, text:str, statement_delimiters_with_space: list):
+        """Finds first delimiter in statement, return -1 if none present"""
+        for delim in statement_delimiters_with_space:
+            if delim in text:
+                return text.find(delim)
+        return -1
+
+    def parse_timespan(self, text:str):
+        parts = text.split(",")[0].split(":")
+        return int(parts[0])*360+int(parts[1])*60+int(parts[2])
+
+    def format_timespan(self, val:int):
+        """Formats timestamp in HH:MM:SS formt, ms always 0"""
+        val = round(val)
+        ret = f"{val//360:02d}:"
+        val = val % 360
+        ret += f"{val//60:02d}:"
+        val = val % 60
+        ret += f"{val:02d},000"
+        return ret
+    
+    def split_statement(self, entry: dict, statement_delimiters_with_space: list):
+        """Splits statement based on first delimiter, apportions
+        timespan based on relative character counts"""
+        text = entry["string"]
+        pos = self.find_delimiter(text, statement_delimiters_with_space)
+        if pos == -1:
+            return [entry]
+        text1 = text[:pos+1]
+        text2 = text[pos+2:]
+        start = self.parse_timespan(entry["start"])
+        end = self.parse_timespan(entry["end"])
+        mid = start + (end-start)//2
+        return [{"start":entry["start"], "end":self.format_timespan(mid-1), "string":text1}, 
+                {"start":self.format_timespan(mid), "end":entry["end"], "string":text2}]
 
     def aggregate_statements(self, srt_data: dict, statement_delimiters: list):
         """
@@ -82,6 +118,14 @@ class SRT_Utils:
                     "string": value,
                 }
             )
+
+        # split statements containing delimiters
+        statement_delimiters_with_space = [x+" " for x in statement_delimiters]
+        split_data = []
+        for entry in data:
+            split_data += self.split_statement(entry, statement_delimiters_with_space)
+        data = split_data
+        
         merged_data = []
         for idx, item in enumerate(data):
             if len(item["string"]) == 0:
