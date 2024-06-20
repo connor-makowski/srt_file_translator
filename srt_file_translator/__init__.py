@@ -42,18 +42,18 @@ class SRT_Utils:
         )
         return srt_data
     
-    def split_statement(self, entry: dict, delimeters: list):
+    def split_statement(self, entry: dict, statement_delimiters: list):
         """
-        Splits a statement into multiple statements based on the delimeters provided.
+        Splits a statement into multiple statements based on the statement_delimiters provided.
 
         Arguments:
 
         * **`entry`**: `[dict]` &rarr; The statement to be split.
-        * **`delimeters`**: `[list]` &rarr; A list of characters that indicate the end of a statement.        
+        * **`statement_delimiters`**: `[list]` &rarr; A list of characters that indicate the end of a statement.        
         """
         text = entry["string"]
         pos = min(
-            [text.find(d) for d in delimeters if text.find(d) != -1], 
+            [text.find(d) for d in statement_delimiters if text.find(d) != -1], 
             default=None
         )
         if pos == None or pos ==len(text)-1:
@@ -68,12 +68,12 @@ class SRT_Utils:
             start_time_obj + (end_time_obj-start_time_obj)*pos/len(text),
             "%H:%M:%S,%f"
         )[:-3] # Only show the first three characters of the ms
-        # Recursively split the statement until all delimeters are separated.
+        # Recursively split the statement until all statement_delimiters are separated.
         return [
             {"start":entry["start"], "end":split_timestamp, "string":start_text}, 
             *self.split_statement(
                 entry={"start":split_timestamp, "end":entry["end"], "string":end_text},
-                delimeters=delimeters
+                statement_delimiters=statement_delimiters
             )
         ]
 
