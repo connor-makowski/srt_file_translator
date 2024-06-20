@@ -41,7 +41,7 @@ class SRT_Utils:
             srt_data=srt_data, statement_delimiters=statement_delimiters
         )
         return srt_data
-    
+
     def split_statement(self, entry: dict, statement_delimiters: list):
         """
         Splits a statement into multiple statements based on the statement_delimiters provided.
@@ -49,32 +49,44 @@ class SRT_Utils:
         Arguments:
 
         * **`entry`**: `[dict]` &rarr; The statement to be split.
-        * **`statement_delimiters`**: `[list]` &rarr; A list of characters that indicate the end of a statement.        
+        * **`statement_delimiters`**: `[list]` &rarr; A list of characters that indicate the end of a statement.
         """
         text = entry["string"]
         pos = min(
-            [text.find(d) for d in statement_delimiters if text.find(d) != -1], 
-            default=None
+            [text.find(d) for d in statement_delimiters if text.find(d) != -1],
+            default=None,
         )
-        if pos == None or pos ==len(text)-1:
+        if pos == None or pos == len(text) - 1:
             return [entry]
-        start_text = text[:pos+1].strip()
-        end_text = text[pos+2:].strip()
+        start_text = text[: pos + 1].strip()
+        end_text = text[pos + 2 :].strip()
         # only show the first three characters of the ms in the dateime
-        start_time_obj = datetime.datetime.strptime(entry["start"], "%H:%M:%S,%f")
+        start_time_obj = datetime.datetime.strptime(
+            entry["start"], "%H:%M:%S,%f"
+        )
         end_time_obj = datetime.datetime.strptime(entry["end"], "%H:%M:%S,%f")
         # Calculate the relative position of the split in terms of time allocation
         split_timestamp = datetime.datetime.strftime(
-            start_time_obj + (end_time_obj-start_time_obj)*pos/len(text),
-            "%H:%M:%S,%f"
-        )[:-3] # Only show the first three characters of the ms
+            start_time_obj + (end_time_obj - start_time_obj) * pos / len(text),
+            "%H:%M:%S,%f",
+        )[
+            :-3
+        ]  # Only show the first three characters of the ms
         # Recursively split the statement until all statement_delimiters are separated.
         return [
-            {"start":entry["start"], "end":split_timestamp, "string":start_text}, 
+            {
+                "start": entry["start"],
+                "end": split_timestamp,
+                "string": start_text,
+            },
             *self.split_statement(
-                entry={"start":split_timestamp, "end":entry["end"], "string":end_text},
-                statement_delimiters=statement_delimiters
-            )
+                entry={
+                    "start": split_timestamp,
+                    "end": entry["end"],
+                    "string": end_text,
+                },
+                statement_delimiters=statement_delimiters,
+            ),
         ]
 
     def aggregate_statements(self, srt_data: dict, statement_delimiters: list):
@@ -118,7 +130,7 @@ class SRT_Utils:
             )
         data = []
         for i in raw_data:
-            data+=self.split_statement(i, statement_delimiters)        
+            data += self.split_statement(i, statement_delimiters)
         merged_data = []
         for idx, item in enumerate(data):
             if len(item["string"]) == 0:
