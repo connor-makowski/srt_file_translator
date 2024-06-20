@@ -3,7 +3,7 @@
 [![PyPI version](https://badge.fury.io/py/srt_file_translator.svg)](https://badge.fury.io/py/srt_file_translator)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-An SRT translator for Python using Google Translate. This package aggregates multi line statements into a single line before translating. This allows google translate to translate the entire statement as a single unit.
+An SRT translator for Python using Google Translate. This package breaks down given SRT formatted text into individual statments that are translated individually. Multi statement lines are broken down into single statement lines and statements that span multiple lines are aggregated into a single line. This allows google translate to translate each statement as a single unit and allows reasonable similarities to the original timing of the SRT file.
 
 # Setup
 
@@ -107,7 +107,7 @@ Bienvenido a una introducción sobre cómo utilizar el paquete Translate SRT.
 Este es sólo un ejemplo de SRT.
 ```
 
-Notice how the statements are aggregated into a single line before being translated. This allows google translate to translate the entire statement as a single unit. This is important because google translate will often translate individual words incorrectly if they are not in the context of the entire statement.
+Notice how the statements are aggregated into a single line before being translated. This allows google translate to translate the entire statement as a single unit. This is important because google translate will often translate individual words incorrectly if they are not in the context of an entire statement.
 
 ## Additional Examples:
 
