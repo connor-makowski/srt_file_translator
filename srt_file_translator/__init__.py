@@ -1,266 +1,162 @@
-import codecs, type_enforced, re, datetime
-from google.cloud import translate_v2 as translate
+"""
+
+# SRT File translator
+[![PyPI version](https://badge.fury.io/py/srt_file_translator.svg)](https://badge.fury.io/py/srt_file_translator)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+An SRT translator for Python using Google Translate. This package breaks down given SRT formatted text into individual statments that are translated individually. Multi statement lines are broken down into single statement lines and statements that span multiple lines are aggregated into a single line. This allows google translate to translate each statement as a single unit and allows reasonable similarities to the original timing of the SRT file.
+
+# Setup
+
+Make sure you have Python 3.10.x (or higher) installed on your system. You can download it [here](https://www.python.org/downloads/).
+
+### Installation
+
+```
+pip install srt_file_translator
+```
+
+# Getting Started
+
+`srt_file_translator` contains a basic `Translator` wrapper class that allows for easy translations of srt files. [Technical Docs Here](https://connor-makowski.github.io/srt_file_translator/srt_file_translator.html).
+
+You need a Google Cloud API Key to use this library. You can create a new json key [here](https://console.cloud.google.com/apis/credentials/serviceaccountkey). Additonal information on how to get started using google cloud translate can be found [here](https://cloud.google.com/translate/docs/setup).
+
+# Usage
+
+## Translator Usage:
+```py
+# Import the Translator class
+from srt_file_translator import Translator
+
+# Initialize a translator object
+translator = Translator(key_path="bq_key.json")
+
+# Translate an srt file
+translator.srt_file_translator(
+    # The path to the srt file you want to translate
+    source_file="test/myscript-en.srt",
+    # The path to the output file
+    target_file="test/myscript-es.srt",
+    # The source language of the srt file
+    source_language="en",
+    # The target language of the output srt file
+    target_language="es"
+    # Optionally: Specify end of statement delimiter characters
+    # for aggregating multi line statements into a single line
+    statement_delimiters=['.', '?', '!']
+    # Defaults to ['.', '?', '!']
+)
+```
+
+## Show Available Languages:
+```py
+from srt_file_translator import Translator
+translator = Translator(key_path="bq_key.json")
+translator.show_languages()
+```
+
+## Actual Example:
+
+Consider the following srt file:
+
+```srt
+0
+00:00:00,000 --> 00:00:00,500
 
 
-@type_enforced.Enforcer
-class SRT_Utils:
-    def parse_srt(
-        self, filepath: str, statement_delimiters: list = [".", "?", "!"]
-    ):
-        """
-        Parses an SRT file into a dictionary of statements.
-        The keys of the dictionary are the time stamps of the statements.
-        The values of the dictionary are the statements themselves.
-        Statements that are split across multiple lines are aggregated.
+1
+00:00:00,500 --> 00:00:04,620
+Welcome to an introduction on how to use
 
-        Arguments:
+2
+00:00:04,620 --> 00:00:06,600
+the Translate SRT package.
 
-        * **`filepath`**: `[str]` &rarr; The path to the SRT file to be parsed.
-        * **`statement_delimiters`**: `[list]` &rarr; A list of characters that indicate the end of a statement. Defaults to `[".", "?", "!"]`.
-        """
-        time_structure = re.compile(
-            "\d{2}:\d{2}:\d{2},\d+ --> \d{2}:\d{2}:\d{2},\d+"
-        )
-        last_time = "00:00:00,000 --> 00:00:00,000"
-        srt_data = {}
+3
+00:00:06,600 --> 00:00:08,540
+This is only an example SRT
 
-        with open(filepath) as filedata:
-            for line in filedata:
-                line_data = line[:-1]
-                if time_structure.match(line_data) is not None:
-                    last_time = line_data
-                    srt_data[last_time] = []
-                else:
-                    if last_time not in srt_data:
-                        srt_data[last_time] = []
-                    srt_data[last_time].append(line_data)
-        for key, value in srt_data.items():
-            srt_data[key] = " ".join(value[:-1] + [""]).strip()
+4
+00:00:08,540 --> 00:00:12,130
+file for the purpose of this demonstration.
 
-        srt_data = self.aggregate_statements(
-            srt_data=srt_data, statement_delimiters=statement_delimiters
-        )
-        return srt_data
+```
 
-    def split_statement(self, entry: dict, statement_delimiters: list):
-        """
-        Splits a statement into multiple statements based on the statement_delimiters provided.
+Using the following code:
+  
+```py
+from srt_file_translator import Translator
+translator = Translator(key_path="bq_key.json")
+translator.srt_file_translator(
+    source_file="example_data/welcome_example-en.srt",
+    target_file="example_data/welcome_example-es.srt",
+    source_language="en",
+    target_language="es"
+)
+```
 
-        Arguments:
+Produces:
 
-        * **`entry`**: `[dict]` &rarr; The statement to be split.
-        * **`statement_delimiters`**: `[list]` &rarr; A list of characters that indicate the end of a statement.
-        """
-        text = entry["string"]
-        pos = min(
-            [text.find(d) for d in statement_delimiters if text.find(d) != -1],
-            default=None,
-        )
-        if pos == None or pos == len(text) - 1:
-            return [entry]
-        start_text = text[: pos + 1].strip()
-        end_text = text[pos + 2 :].strip()
-        # only show the first three characters of the ms in the dateime
-        start_time_obj = datetime.datetime.strptime(
-            entry["start"], "%H:%M:%S,%f"
-        )
-        end_time_obj = datetime.datetime.strptime(entry["end"], "%H:%M:%S,%f")
-        # Calculate the relative position of the split in terms of time allocation
-        split_timestamp = datetime.datetime.strftime(
-            start_time_obj + (end_time_obj - start_time_obj) * pos / len(text),
-            "%H:%M:%S,%f",
-        )[
-            :-3
-        ]  # Only show the first three characters of the ms
-        # Recursively split the statement until all statement_delimiters are separated.
-        return [
-            {
-                "start": entry["start"],
-                "end": split_timestamp,
-                "string": start_text,
-            },
-            *self.split_statement(
-                entry={
-                    "start": split_timestamp,
-                    "end": entry["end"],
-                    "string": end_text,
-                },
-                statement_delimiters=statement_delimiters,
-            ),
-        ]
+```srt
+0
+00:00:00,500 --> 00:00:06,600
+Bienvenido a una introducción sobre cómo utilizar el paquete Translate SRT.
 
-    def aggregate_statements(self, srt_data: dict, statement_delimiters: list):
-        """
-        Takes in a dictionary of SRT data and aggregates statements that are split across multiple lines.
-        Items are aggregated until a statement delimiter is found at the end of a line.
+1
+00:00:06,600 --> 00:00:12,130
+Este es sólo un ejemplo de SRT.
+```
 
-        Arguments:
+Notice how the statements are aggregated into a single line before being translated. This allows google translate to translate the entire statement as a single unit. This is important because google translate will often translate individual words incorrectly if they are not in the context of an entire statement.
 
-        * **`srt_data`**: `[dict]` &rarr; The parsed SRT data.
-        * **`statement_delimiters`**: `[list]` &rarr; A list of characters that indicate the end of a statement. Defaults to `[".", "?", "!"]`.
+## Additional Examples:
 
-        Returns:
+### Translating all files in a folder to multiple languages:
 
-        * **`out_data`**: `[dict]` &rarr; The aggregated SRT data.
+```py
+# Import the Translator class
+from srt_file_translator import Translator
+# Import os for file system operations
+import os
 
-        EG:
+# Initialize a translator object
+translator = Translator(key_path="bq_key.json")
 
-        ```python
+# Specify the input and output folders
+input_folder = "example_data"
+output_folder = "example_output"
 
-        srt_data = {
-            "00:00:00,000 --> 00:00:01,000": "Hello World!",
-            "00:00:01,000 --> 00:00:02,000": "This is",
-            "00:00:02,000 --> 00:00:03,000": "a test."
-        }
+# Create the output folder if it doesn't exist
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
 
-        Translator.aggregate_statements(srt_data=srt_data, statement_delimiters=[".", "?", "!"])
-        #=> {
-        #=>     "00:00:00,000 --> 00:00:01,000": "Hello World!",
-        #=>     "00:00:01,000 --> 00:00:03,000": "This is a test."
-        #=> }
-        """
-        raw_data = []
-        for key, value in srt_data.items():
-            raw_data.append(
-                {
-                    "start": key.split(" --> ")[0],
-                    "end": key.split(" --> ")[1],
-                    "string": str(value.strip()),
-                }
-            )
-        data = []
-        for i in raw_data:
-            data += self.split_statement(i, statement_delimiters)
-        merged_data = []
-        for idx, item in enumerate(data):
-            if len(item["string"]) == 0:
-                continue
-            if (
-                item["string"][-1] in statement_delimiters
-                or idx == len(data) - 1
-            ):
-                merged_data.append(item)
-            else:
-                data[idx + 1]["string"] = (
-                    item["string"] + " " + data[idx + 1]["string"]
-                )
-                data[idx + 1]["start"] = item["start"]
-        out_data = {}
-        for item in merged_data:
-            out_data[item["start"] + " --> " + item["end"]] = item[
-                "string"
-            ].strip()
-        return out_data
+# Specify the source language and target languages
+source_language = "en"
+target_languates = ["es", "fr", "de", "it", "pt", "ru", "zh", "ja", "ko"]
 
-    def write_srt(self, filepath: str, srt_data: dict):
-        """
-        Writes SRT data to a file.
-
-        Arguments:
-
-        * **`filepath`**: `[str]` &rarr; The path to the SRT file to be written.
-        * **`srt_data`**: `[dict]` &rarr; The SRT data to be written to the file.
-        """
-        idx = 0
-        with codecs.open(filepath, "w+", encoding="utf-8-sig") as out_file:
-            for key, value in srt_data.items():
-                out_file.write(str(idx) + "\n")
-                out_file.write(key + "\n")
-                out_file.write(value + "\n")
-                out_file.write("\n")
-                idx += 1
-
-
-@type_enforced.Enforcer
-class Translator(SRT_Utils):
-    def __init__(self, key_path: str):
-        """
-        Initializes the Translator class.
-
-        Arguments:
-
-        * **`key_path`**: `[str]` &rarr; The path to the Google Cloud API key.
-            * You can create a key by following the instructions [here](https://cloud.google.com/translate/docs/setup).
-        """
-        self.__client__ = translate.Client.from_service_account_json(key_path)
-        self.__languages__ = self.__client__.get_languages()
-        self.__available_languages__ = set(
-            [language["language"] for language in self.__languages__]
-        )
-
-    def show_languages(self):
-        """
-        Prints a list of available languages.
-        """
-        for language in self.__languages__:
-            print("{name} ({language})".format(**language))
-
-    def translate(self, text: str, source_language: str, target_language: str):
-        """
-        Translates a string of text from one language to another.
-
-        Arguments:
-
-        * **`text`**: `[str]` &rarr; The text to be translated.
-        * **`source_language`**: `[str]` &rarr; The language of the text to be translated.
-        * **`target_language`**: `[str]` &rarr; The language to translate the text to.
-        """
-
-        return self.__client__.translate(
-            text,
-            target_language=target_language,
+# Loop through all files in the input folder
+for file in os.listdir(input_folder):
+    # Loop through all target languages
+    for target_language in target_languates:
+        # Translate each input file to each target language
+        translator.srt_file_translator(
+            source_file=os.path.join(input_folder, file),
+            target_file=os.path.join(output_folder, f"{os.path.splitext(file)[0]}-{target_language}.srt"),
             source_language=source_language,
+            target_language=target_language
         )
+```
 
-    def srt_file_translator(
-        self,
-        source_file: str,
-        target_file: str,
-        source_language: str,
-        target_language: str,
-        statement_delimiters: list = [".", "?", "!"],
-    ):
-        """
-        Reads an SRT file, translates the text, and writes the translated text to a new SRT file.
 
-        Arguments:
+# License
 
-        * **`source_file`**: `[str]` &rarr; The path to the SRT file to be translated.
-        * **`target_file`**: `[str]` &rarr; The path to the SRT file to be written.
-        * **`source_language`**: `[str]` &rarr; The language of the text to be translated.
-        * **`target_language`**: `[str]` &rarr; The language to translate the text to.
-        * **`statement_delimiters`**: `[list]` &rarr; A list of characters that indicate the end of a statement. Defaults to `[".", "?", "!"]`.
-        """
-        # General Assertions
-        assert (
-            source_language in self.__available_languages__
-        ), "Source language not supported. Use Translator.show_languages() to see available languages."
-        assert (
-            target_language in self.__available_languages__
-        ), "Target language not supported. Use Translator.show_languages() to see available languages."
-        assert source_file.endswith(".srt"), "Source file must be a .srt file"
-        assert target_file.endswith(".srt"), "Target file must be a .srt file"
+Copyright 2024 Connor Makowski
 
-        # Parse SRT
-        srt_data = self.parse_srt(
-            filepath=source_file, statement_delimiters=statement_delimiters
-        )
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-        # Chunk SRT Data into 128 item chunks
-        srt_data_values = list(srt_data.values())
-        chunked_values = [
-            srt_data_values[i : i + 128]
-            for i in range(0, len(srt_data_values), 128)
-        ]
-        translations = []
-        for chunk in chunked_values:
-            translations += [
-                i["translatedText"]
-                for i in self.__client__.translate(
-                    chunk,
-                    target_language=target_language,
-                    source_language=source_language,
-                )
-            ]
-        output_srt_data = dict(zip(srt_data.keys(), translations))
-        self.write_srt(filepath=target_file, srt_data=output_srt_data)
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+"""
+from .translator import Translator, SRT_Utils

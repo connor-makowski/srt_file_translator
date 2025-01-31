@@ -1,8 +1,8 @@
 ﻿0
 00:00:00,500 --> 00:00:06,600
-Bienvenido a una introducción sobre cómo utilizar el paquete SRT File Translator.
+Bienvenido a una introducción sobre cómo utilizar el paquete Traductor de archivos SRT.
 
 1
 00:00:06,600 --> 00:00:12,130
-Este es sólo un ejemplo de SRT.
+Este es solo un ejemplo de SRT
 

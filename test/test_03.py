@@ -3,4 +3,3 @@ import os
 
 translator = Translator(key_path="bq_key.json")
 translator.show_languages()
-

@@ -7,7 +7,7 @@ An SRT translator for Python using Google Translate. This package breaks down gi
 
 # Setup
 
-Make sure you have Python 3.7.x (or higher) installed on your system. You can download it [here](https://www.python.org/downloads/).
+Make sure you have Python 3.10.x (or higher) installed on your system. You can download it [here](https://www.python.org/downloads/).
 
 ### Installation
 

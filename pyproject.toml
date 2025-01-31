@@ -12,21 +12,21 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "srt_file_translator"
-version = "1.1.0"
+version = "1.2.0"
 description = "A python translator for srt files."
 authors = [
     {name="Connor Makowski", email="conmak@mit.edu"}
 ]
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.10"
 classifiers = [
     "Programming Language :: Python :: 3",
     'License :: OSI Approved :: MIT License',
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "google-cloud-translate==3.12.1", 
-    "type_enforced>=1.2.0",
+    "google-cloud-translate==3.19.0", 
+    "type_enforced>=1.10.1",
 ]
 
 [project.urls]
